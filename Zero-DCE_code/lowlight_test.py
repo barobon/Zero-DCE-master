@@ -31,7 +31,7 @@ def lowlight(image_path):
 	data_lowlight = data_lowlight.cuda().unsqueeze(0)
 
 	DCE_net = model.enhance_net_nopool().cuda()
-	DCE_net.load_state_dict(torch.load('snapshots/Epoch99.pth'))
+	DCE_net.load_state_dict(torch.load('snapshots/val_lowest.pth'))
 	start = time.time()
 	_,enhanced_image,_ = DCE_net(data_lowlight)
 
@@ -51,9 +51,8 @@ if __name__ == '__main__':
 	
 		file_list = os.listdir(filePath)
 		for file_name in file_list:
-			test_list = glob.glob(filePath+file_name+"/*") 
+			test_list = glob.glob(filePath+file_name+"/*")
 			test_list = [os.path.normpath(p).replace('\\', '/') for p in test_list] #리눅스 운영체제에서 사용시 추가
-			print(test_list)
 			for image in test_list:
 				# image = image
 				print(image)
